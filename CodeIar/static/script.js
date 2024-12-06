@@ -18,13 +18,21 @@ fetch('/data')
         const defaultCountry = "Australia";
         countrySelect.value = defaultCountry;
 
-        // Function to update chart with selected country
+        // Store the chart instance globally
+        let chart;
+
+        // Function to update the chart with the selected country
         function updateChart(country) {
             const values = data.map(item => item[country]);
 
-            // Setup chart
+            // If chart exists, destroy it before creating a new one
+            if (chart) {
+                chart.destroy(); // Destroy the previous chart instance
+            }
+
+            // Create the new chart
             const ctx = document.getElementById('gdpChart').getContext('2d');
-            const chart = new Chart(ctx, {
+            chart = new Chart(ctx, {
                 type: 'line',
                 data: {
                     labels: quarters,
@@ -64,7 +72,7 @@ fetch('/data')
             });
         }
 
-        // Update the chart with the default country (United States)
+        // Update the chart with the default country (Australia)
         updateChart(defaultCountry);
 
         // Listen for changes in the dropdown
