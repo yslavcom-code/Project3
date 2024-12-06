@@ -1,6 +1,7 @@
 from flask import Flask, jsonify, render_template
 from pymongo import MongoClient
 import json
+from bson import json_util
 
 app = Flask(__name__)
 
@@ -18,8 +19,10 @@ def index():
 @app.route("/data")
 def get_data():
     # Exclude MongoDB's `_id` field
-    data = list(collection.find({}, {'_id': 0}))  
-    return jsonify(data)
+    data = list(collection.find({}, {'_id': 0}))
+    clean_data = json.loads(json_util.dumps(data))  # Convert to JSON-compatible format
+    # print(data)
+    return jsonify(clean_data)
 
 
 if __name__ == "__main__":
