@@ -7,6 +7,9 @@ fetch('/data')
 
         // Populate the dropdown with countries
         const countrySelect = document.getElementById('countrySelect');
+        countrySelect.setAttribute('multiple', true); // Allow multiple selections
+        countrySelect.setAttribute('size', 10); // Display 10 options at once in the dropdown
+
         countries.forEach(country => {
             const option = document.createElement('option');
             option.value = country;
@@ -14,30 +17,73 @@ fetch('/data')
             countrySelect.appendChild(option);
         });
 
-        // Set the default selected country 
-        const defaultCountry = "Australia";
-        countrySelect.value = defaultCountry;
+        // Set the default selected countries (up to 5)
+        const defaultCountries = ["Australia"];
+        defaultCountries.forEach(country => {
+            const option = countrySelect.querySelector(`option[value="${country}"]`);
+            if (option) option.selected = true;
+        });
 
         // Store the chart instance globally
         let chart;
 
-        // Function to update the chart with the selected country
-        function updateChart(country) {
+        // Map to store country-color assignments
+        const countryColorMap = {};
 
-            const values = data.map(item => {
-                const value = item[country];
-                return (typeof value === 'number' && !isNaN(value)) ? value : null; // Replace NaN or invalid values with null
-            }).filter(value => value !== null); // Filter out nulls
-
-            if (values.length === 0) {
-                console.warn(`No valid data available for ${country}`);
-                return; // Do not render the chart if no valid data exists
+        // Function to generate or reuse a color for a country
+        function getCountryColor(country) {
+            // If a color is already assigned to this country, return it
+            if (countryColorMap[country]) {
+                return countryColorMap[country];
             }
+            
+            // Otherwise, generate a new color and store it
+            const color = randomColor();
+            countryColorMap[country] = color;
+            return color;
+        }
 
+        // Function to generate random color (for variety)
+        function randomColor() {
+            const letters = '0123456789ABCDEF';
+            let color = '#';
+            for (let i = 0; i < 6; i++) {
+                color += letters[Math.floor(Math.random() * 16)];
+            }
+            return color;
+        }
+
+        // Function to generate a semi-transparent color
+        function semiTransparentColor(color) {
+            return color.replace('rgb', 'rgba').replace(')', ', 0.3)'); // Convert to RGBA and set opacity to 0.3
+        }
+
+        // Function to update the chart with the selected countries
+        function updateChart(selectedCountries) {
+            // Generate datasets for the selected countries
+            const datasets = selectedCountries.map(country => {
+                const values = data.map(item => {
+                    const value = item[country];
+                    return (typeof value === 'number' && !isNaN(value)) ? value : null; // Replace NaN or invalid values with null
+                }).filter(value => value !== null); // Filter out nulls
+
+                const color = getCountryColor(country); // Get or generate the color for this country
+                const borderColor = color;
+                const backgroundColor = semiTransparentColor(color); // Make background semi-transparent
+
+                return {
+                    label: `${country} GDP Deflator`,
+                    data: values,
+                    borderColor: borderColor, // Assign the color for the border
+                    backgroundColor: backgroundColor, // Semi-transparent color for the background
+                    borderWidth: 2,
+                    fill: true,
+                };
+            });
 
             // If chart exists, destroy it before creating a new one
             if (chart) {
-                chart.destroy(); // Destroy the previous chart instance
+                chart.destroy();
             }
 
             // Create the new chart
@@ -45,15 +91,8 @@ fetch('/data')
             chart = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: quarters,
-                    datasets: [{
-                        label: `${country} GDP Deflator`,
-                        data: values,
-                        borderColor: 'rgba(75, 192, 192, 1)',
-                        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                        borderWidth: 2,
-                        fill: true,
-                    }]
+                    labels: quarters.slice(0, datasets[0].data.length), // Ensure labels match the number of values
+                    datasets: datasets, // Add all datasets for the selected countries
                 },
                 options: {
                     responsive: true,
@@ -82,13 +121,20 @@ fetch('/data')
             });
         }
 
-        // Update the chart with the default country (Australia)
-        updateChart(defaultCountry);
+        // Update the chart with the default selected countries
+        updateChart(defaultCountries);
 
         // Listen for changes in the dropdown
         countrySelect.addEventListener('change', function() {
-            const selectedCountry = countrySelect.value;
-            updateChart(selectedCountry);
+            const selectedCountries = Array.from(countrySelect.selectedOptions).map(option => option.value);
+            
+            // Ensure the number of selected countries doesn't exceed 5
+            if (selectedCountries.length > 5) {
+                alert('You can only select up to 5 countries.');
+                return; 
+            }
+
+            updateChart(selectedCountries);
         });
     })
     .catch(err => console.error("Error fetching data:", err));
