@@ -23,7 +23,17 @@ fetch('/data')
 
         // Function to update the chart with the selected country
         function updateChart(country) {
-            const values = data.map(item => item[country]);
+
+            const values = data.map(item => {
+                const value = item[country];
+                return (typeof value === 'number' && !isNaN(value)) ? value : null; // Replace NaN or invalid values with null
+            }).filter(value => value !== null); // Filter out nulls
+
+            if (values.length === 0) {
+                console.warn(`No valid data available for ${country}`);
+                return; // Do not render the chart if no valid data exists
+            }
+
 
             // If chart exists, destroy it before creating a new one
             if (chart) {
