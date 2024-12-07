@@ -95,7 +95,9 @@ fetch('/data')
         };
 
 
-        const map = L.map('map').setView([20, 0], 2);
+        const map = L.map('map',{
+            attributionControl: false
+        }).setView([20, 0], 2);
 
         // Add OpenStreetMap tiles
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
