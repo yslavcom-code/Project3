@@ -24,6 +24,10 @@ def get_data():
     # print(data)
     return jsonify(clean_data)
 
+@app.route('/world-map')
+def world_map():
+    return render_template('map.html')
+
 
 if __name__ == "__main__":
     app.run(debug=True)
