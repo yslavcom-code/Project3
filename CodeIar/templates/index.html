@@ -5,17 +5,65 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GDP Deflator Visualization</title>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        /* Create a two-column layout */
+        body {
+            display: flex;
+            flex-direction: row;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Sidebar on the left */
+        #sidebar {
+            width: 20%;
+            padding: 10px;
+            background-color: #f4f4f4;
+            border-right: 1px solid #ccc;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Content area for the chart */
+        #content {
+            flex: 1;
+            padding: 20px;
+        }
+
+        /* Style for the dropdown label and select box */
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            font-size: 14px;
+        }
+
+        /* Style for the canvas/chart */
+        canvas {
+            max-width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <h1>GDP Deflator Visualization</h1>
+    <!-- Sidebar for the dropdown -->
+    <div id="sidebar">
+        <label for="countrySelect">Select Country:</label>
+        <select id="countrySelect">
+            <!-- Countries will be populated dynamically -->
+        </select>
+    </div>
 
-    <label for="countrySelect">Select Country: </label>
-    <select id="countrySelect">
-        <!-- Countries will be populated dynamically -->
-    </select>
+    <!-- Main content area for the chart -->
+    <div id="content">
+        <h1>GDP Deflator Visualization</h1>
+        <canvas id="gdpChart" width="800" height="400"></canvas>
+    </div>
 
-    <canvas id="gdpChart" width="800" height="400"></canvas>
-
+    <!-- Include the JavaScript -->
     <script src="/static/script.js"></script>
 </body>
 </html>
