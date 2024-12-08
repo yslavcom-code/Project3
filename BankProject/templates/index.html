@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Indicators Dashboard</title>
+    
+    <!-- Import required libraries -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Add some basic styling directly in the HTML -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+        }
+        
+        .dashboard-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .control-panel {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        select {
+            padding: 8px;
+            margin-right: 10px;
+            min-width: 200px;
+        }
+        
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #0056b3;
+        }
+        
+        #chartArea {
+            min-height: 400px;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Economic Indicators Dashboard</h1>
+        
+        <div class="control-panel">
+            <label for="countrySelect">Select Countries (max 5):</label>
+            <select id="countrySelect" multiple size="5">
+                <!-- Will be populated by JavaScript -->
+            </select>
+            
+            <label for="indicatorSelect">Select Indicator:</label>
+            <select id="indicatorSelect">
+                <option value="GDP">GDP</option>
+                <option value="CPI">CPI</option>
+            </select>
+            
+            <button onclick="updateVisualization()">Update Chart</button>
+        </div>
+        
+        <div id="chartArea">
+            <!-- Charts will be rendered here -->
+        </div>
+    </div>
+
+    <script>
+        // Load countries when the page opens
+        $(document).ready(function() {
+            $.get('/api/countries', function(response) {
+                const countrySelect = document.getElementById('countrySelect');
+                response.countries.forEach(country => {
+                    const option = document.createElement('option');
+                    option.value = country;
+                    option.text = country;
+                    countrySelect.appendChild(option);
+                });
+            });
+        });
+
+        function updateVisualization() {
+            console.log("Updating visualization...");
+            // We'll add the chart creation code in the next step
+        }
+    </script>
+</body>
+</html>
+
