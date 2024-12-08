@@ -102,8 +102,56 @@
         });
 
         function updateVisualization() {
-            console.log("Updating visualization...");
-            // We'll add the chart creation code in the next step
+            // Get selected countries
+            const selectedCountries = Array.from(document.getElementById('countrySelect').selectedOptions).map(option => option.value);
+            
+            // Get selected indicator
+            const indicator = document.getElementById('indicatorSelect').value;
+            
+            // Check if countries are selected
+            if (selectedCountries.length === 0) {
+                alert('Please select at least one country');
+                return;
+            }
+            
+            // Fetch data from our API
+            $.get('/api/economic-data', {
+                'countries[]': selectedCountries,
+                'indicator': indicator
+            }, function(response) {
+                const data = response.data;
+                
+                // Create traces for each country
+                const traces = selectedCountries.map(country => ({
+                    x: data.map(d => d.year),  // Years on x-axis
+                    y: data.map(d => d[country]),  // Country values on y-axis
+                    name: country,
+                    type: 'scatter',
+                    mode: 'lines+markers'
+                }));
+                
+                // Define layout
+                const layout = {
+                    title: `${indicator} Trends Over Time`,
+                    xaxis: {
+                        title: 'Year',
+                        tickangle: 45
+                    },
+                    yaxis: {
+                        title: indicator === 'GDP' ? 'GDP Deflator' : 'CPI Value'
+                    },
+                    hovermode: 'closest',
+                    showlegend: true,
+                    legend: {
+                        x: 1,
+                        xanchor: 'right',
+                        y: 1
+                    }
+                };
+                
+                // Create the plot
+                Plotly.newPlot('chartArea', traces, layout);
+            });
         }
     </script>
 </body>
