@@ -12,11 +12,20 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
+            justify-content: center;
         }
         .gallery img {
-            max-width: 200px;
-            height: auto;
+            max-width: 100%; /* Ensure images don't exceed the container width */
+            max-height: 300px; /* Scale images to a maximum height */
+            object-fit: cover; /* Maintain aspect ratio while cropping excess */
             border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); 
+        }
+        @media (max-width: 600px) {
+            .gallery img {
+                max-height: 200px; /* Adjust height for smaller screens */
+            }
         }
     </style>
 </head>
