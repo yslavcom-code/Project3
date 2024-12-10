@@ -3,6 +3,8 @@ from pymongo import MongoClient
 import json
 from bson import json_util
 import os
+import subprocess
+from read_xlsx import update_from_spreadsheet, delete_db
 
 app = Flask(__name__)
 
@@ -10,12 +12,34 @@ app = Flask(__name__)
 client = MongoClient("mongodb://localhost:27017/")
 db = client['economic_data']
 collection = db['gdp_deflator']
-
-
+       
 @app.route("/")
 def index():
     return render_template("index.html")
 
+@app.route("/update-data", methods=["POST"])
+def update_data():
+    try:
+        result = update_from_spreadsheet()
+        return jsonify({"message": "Data updated successfully!", "output": result})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"message": "Error updating data.", "error": e.stderr}), 500
+
+@app.route("/update-data")
+def update_page():
+    try:
+        result = update_from_spreadsheet()
+        return render_template("update_status.html", status="success", message=result)
+    except subprocess.CalledProcessError as e:
+        return render_template("update_status.html", status="failure", message=e.stderr)
+
+@app.route("/delete-data")
+def delete_data_page():
+    try:
+        result = delete_db()
+        return render_template("update_status.html", status="success", message=result)
+    except subprocess.CalledProcessError as e:
+        return render_template("update_status.html", status="failure", message=e.stderr)
 
 @app.route("/data")
 def get_data():
