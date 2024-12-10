@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ folder_name }} Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            text-align: center;
+        }
+        .gallery {
+            display: block;
+            margin: 0 auto; /* Center the gallery on the page */
+        }
+        .gallery img {
+            display: block;
+            margin: 10px auto; /* Add spacing and center images */
+            max-width: 100%; /* Ensure images don't exceed the container width */
+            max-height: 300px; /* Scale images to a maximum height */
+            object-fit: cover; /* Maintain aspect ratio while cropping excess */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1); 
+        }
+        @media (max-width: 600px) {
+            .gallery img {
+                max-height: 200px; /* Adjust height for smaller screens */
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>{{ folder_name }} Gallery</h1>
+    <div class="gallery">
+        {% for image in images %}
+        <img src="{{ image }}" alt="Image">
+        {% endfor %}
+    </div>
+    <a href="/">Back to Home</a>
+</body>
+</html>

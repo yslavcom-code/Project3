@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Update Status</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+        }
+
+        .success {
+            color: green;
+        }
+
+        .failure {
+            color: red;
+        }
+
+        pre {
+            background: #f4f4f4;
+            padding: 10px;
+            border: 1px solid #ddd;
+            text-align: left;
+            display: inline-block;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Update Status</h1>
+    {% if status == "success" %}
+    <p class="success">✔️ The update was successful!</p>
+    <pre>{{ message }}</pre>
+    {% elif status == "failure" %}
+    <p class="failure">❌ The update failed!</p>
+    <pre>{{ message }}</pre>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+
+</html>
