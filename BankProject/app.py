@@ -51,3 +51,25 @@ def get_economic_data():
     return jsonify({"data": data})
 if __name__ == '__main__':
     app.run(debug=True, port=5000)
+@app.route('/api/map-data')
+def get_map_data():
+    indicator = request.args.get('indicator', 'GDP')
+    
+    db = connect_to_database()
+    collection = db["cleaned_economic_data"]
+    
+    # Get the most recent year's data
+    latest_data = collection.find_one(
+        {"indicator_type": indicator},
+        sort=[("year", -1)]
+    )
+    
+    if latest_data:
+        # Remove non-country fields
+        del latest_data['_id']
+        del latest_data['year']
+        del latest_data['indicator_type']
+        del latest_data['file_source']
+        del latest_data['seasonally_adjusted']
+    
+    return jsonify({"data": latest_data})
