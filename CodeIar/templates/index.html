@@ -3,88 +3,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GDP Deflator Visualization</title>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>World Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
-        /* Create a two-column layout */
-        body {
-            display: flex;
-            flex-direction: row;
-            margin: 0;
-            font-family: Arial, sans-serif;
-        }
-
-        /* Sidebar on the left */
-        #sidebar {
-            width: 20%;
-            padding: 10px;
-            background-color: #f4f4f4;
-            border-right: 1px solid #ccc;
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Content area for the chart */
-        #content {
-            flex: 1;
-            padding: 20px;
-        }
-
-        /* Style for the dropdown label and select box */
-        label {
-            display: block;
-            margin-bottom: 10px;
-            font-weight: bold;
-        }
-
-        select {
+        /* Style for the map container */
+        #map {
+            height: 90vh;
             width: 100%;
-            padding: 8px;
+            margin: 0 auto;
+        }
+
+        /* Style for the return button */
+        .navigation-link {
+            display: inline-block;
+            margin: 10px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
             font-size: 14px;
         }
 
-        /* Style for the canvas/chart */
-        canvas {
-            max-width: 100%;
+        .navigation-link:hover {
+            background-color: #0056b3;
         }
     </style>
 </head>
 <body>
-    <!-- Sidebar for the dropdown -->
-    <div id="sidebar">
-        <label for="countrySelect">Select Country:</label>
-        <select id="countrySelect">
-            <!-- Countries will be populated dynamically -->
-        </select>
+    <a href="/chart_page" class="navigation-link">To Chart Page</a>
+    <div id="map"></div>
 
-        <style>
-            #links ul {
-                list-style-type: none; /* Remove bullet points */
-                padding: 0;            /* Remove padding */
-                margin: 0;             /* Remove margin */
-            }
-            #links li {
-                margin-bottom: 10px;   /* Add some space between links */
-            }
-        </style>
-
-        <div id="links">
-            <ul>
-            <li><a href="/world-map" class="navigation-link">View World Map</a></li>
-            <li><a href="/example" class="navigation-link">Loku Presentation</a></li>
-            <li><a href="/jane" class="navigation-link">Jane Presentation</a></li>
-            <li><a href="/soheil" class="navigation-link">Soheil Presentation</a></li>
-            <li><a href="/example" class="navigation-link">Example Presentation</a></li>
-            </ul>
-        </div>
-    </div>
-
-    <!-- Main content area for the chart -->
-    <div id="content">
-        <h1>GDP Deflator Visualization</h1>
-        <canvas id="gdpChart" width="800" height="400"></canvas>
-    </div>
-
-    <!-- Include the JavaScript -->
-    <script src="/static/script.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="/static/map.js"></script>
 </body>
 </html>

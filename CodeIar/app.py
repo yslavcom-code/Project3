@@ -25,9 +25,9 @@ def get_data():
     # print(data)
     return jsonify(clean_data)
 
-@app.route('/world-map')
+@app.route('/chart_page')
 def world_map():
-    return render_template('map.html')
+    return render_template('chart_page.html')
 
 
 @app.route('/soheil')
