@@ -72,10 +72,16 @@ Data Source(s)
 Stock market data is sourced from the Excel file Stock Markets, US$.xlsx available on the project directory. The data spans multiple years (1995-2024) for various countries.
 
 Stock Market Data Source: https://data.worldbank.org
+
 Pandas Documentation: https://pandas.pydata.org/
+
 Matplotlib Documentation: https://matplotlib.org/
+
 mpld3 Documentation: https://mpld3.github.io/
+
 MongoDB Documentation: https://www.mongodb.com/docs/
+
+
 
 
 
