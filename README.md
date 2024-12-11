@@ -86,19 +86,35 @@ MongoDB Documentation: https://www.mongodb.com/docs/
 
 
 Folder Structure:
+
 /Stock-Market-Analysis
+
+
     /Resources
-        Stock Markets, US$.xlsx
+    
+    Stock Markets, US$.xlsx
+
+
     /Output
+    
         cleaned_stock_data.xlsx
-        global_trends_plot.png
-        regional_trends_plot.png
-        regional_bar_plot.png
-        global_trends_plot.html
-        regional_trends_plot.html
-        regional_bar_plot.html
         
+        global_trends_plot.png
+        
+        regional_trends_plot.png
+        
+        regional_bar_plot.png
+        
+        global_trends_plot.html
+        
+        regional_trends_plot.html
+        
+        regional_bar_plot.html
+
+
+    
   /Stock Markets.ipyng
+  
   / README.md
 
 
