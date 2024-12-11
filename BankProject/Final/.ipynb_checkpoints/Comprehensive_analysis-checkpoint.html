@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Unemployment Analysis Dashboard</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f2f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .chart-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
+        }
+
+        .chart-container {
+            height: 400px;
+            position: relative;
+        }
+
+        .tab-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #e0e0e0;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .tab-button.active {
+            background-color: #1a73e8;
+            color: white;
+        }
+
+        .analysis-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-highlight {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid #1a73e8;
+        }
+
+        .crisis-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .crisis-comparison {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .chart-title {
+            font-size: 1.2em;
+            color: #1a73e8;
+            margin-bottom: 15px;
+        }
+
+        .metric-card {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+
+        .metric-value {
+            font-size: 1.8em;
+            color: #1a73e8;
+            font-weight: bold;
+        }
+
+        .metric-label {
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Main Timeline Chart -->
+        <div class="chart-card full-width">
+            <h2>Global Unemployment Trends (2006-2023)</h2>
+            <div class="tab-container">
+                <button class="tab-button active" onclick="updatePeriod('all')">All Time</button>
+                <button class="tab-button" onclick="updatePeriod('financial-crisis')">Financial Crisis</button>
+                <button class="tab-button" onclick="updatePeriod('covid')">COVID-19</button>
+            </div>
+            <div class="chart-container">
+                <canvas id="mainChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Crisis Impact Comparison -->
+        <div class="chart-card">
+            <h3 class="chart-title">Crisis Impact Comparison</h3>
+            <div class="chart-container">
+                <canvas id="crisisComparisonChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Recovery Speed Analysis -->
+        <div class="chart-card">
+            <h3 class="chart-title">Recovery Speed Analysis</h3>
+            <div class="chart-container">
+                <canvas id="recoveryChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Key Metrics Dashboard -->
+        <div class="chart-card full-width">
+            <h3 class="chart-title">Key Findings</h3>
+            <div class="crisis-comparison">
+                <div class="analysis-card">
+                    <h4>Financial Crisis (2008-2009)</h4>
+                    <div id="financialCrisisMetrics"></div>
+                </div>
+                <div class="analysis-card">
+                    <h4>COVID-19 Crisis (2019-2020)</h4>
+                    <div id="covidMetrics"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Data initialization
+        const unemploymentData = {
+            labels: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023],
+            datasets: {
+                USA: [4.61, 4.62, 5.80, 9.28, 9.61, 8.93, 8.07, 7.36, 6.16, 5.28, 4.88, 4.36, 3.89, 3.67, 8.09, 5.35, 3.63, 3.63],
+                Canada: [6.45, 6.16, 6.31, 8.46, 8.14, 7.62, 7.41, 7.18, 7.03, 6.95, 7.03, 6.41, 5.85, 5.70, 9.73, 7.48, 5.27, 5.41],
+                Australia: [4.77, 4.37, 4.25, 5.56, 5.18, 5.08, 5.22, 5.67, 6.09, 6.05, 5.72, 5.59, 5.31, 5.17, 6.46, 5.13, 3.72, 3.69],
+                Germany: [8.08, 8.53, 7.41, 7.22, 6.56, 5.51, 5.08, 4.94, 4.70, 4.36, 3.90, 3.57, 3.21, 2.98, 3.63, 3.57, 3.07, 3.03],
+                Japan: [4.14, 3.84, 3.99, 5.07, 5.05, 4.58, 4.35, 4.02, 3.59, 3.37, 3.11, 2.81, 2.44, 2.35, 2.78, 2.82, 2.60, 2.57],
+                Mexico: [3.53, 3.61, 3.90, 5.39, 5.31, 5.19, 4.93, 4.94, 4.83, 4.35, 3.87, 3.42, 3.32, 3.49, 4.41, 4.14, 3.28, 2.80]
+            }
+        };
+
+        const colors = {
+            USA: '#1a73e8',
+            Canada: '#ea4335',
+            Australia: '#34a853',
+            Germany: '#fbbc04',
+            Japan: '#673ab7',
+            Mexico: '#ff6d00'
+        };
+
+        // Calculate crisis impact
+        function calculateCrisisImpact(country, baseYear) {
+            const yearIndex = unemploymentData.labels.indexOf(baseYear);
+            const preValue = unemploymentData.datasets[country][yearIndex];
+            const postValue = unemploymentData.datasets[country][yearIndex + 1];
+            return ((postValue - preValue) / preValue * 100).toFixed(2);
+        }
+
+        // Initialize main chart
+        let mainChart;
+        function initMainChart(startYear = 2006, endYear = 2023) {
+            const ctx = document.getElementById('mainChart').getContext('2d');
+            const startIndex = unemploymentData.labels.indexOf(startYear);
+            const endIndex = unemploymentData.labels.indexOf(endYear) + 1;
+
+            if (mainChart) {
+                mainChart.destroy();
+            }
+
+            mainChart = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: unemploymentData.labels.slice(startIndex, endIndex),
+                    datasets: Object.entries(unemploymentData.datasets).map(([country, data]) => ({
+                        label: country,
+                        data: data.slice(startIndex, endIndex),
+                        borderColor: colors[country],
+                        backgroundColor: colors[country] + '20',
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: true
+                    }))
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: false,
+                            title: {
+                                display: true,
+                                text: 'Unemployment Rate (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize crisis comparison chart
+        function initCrisisComparison() {
+            const ctx = document.getElementById('crisisComparisonChart').getContext('2d');
+            const countries = Object.keys(unemploymentData.datasets);
+            
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: countries,
+                    datasets: [
+                        {
+                            label: 'Financial Crisis Impact',
+                            data: countries.map(country => calculateCrisisImpact(country, 2008)),
+                            backgroundColor: Object.values(colors).map(color => color + '80')
+                        },
+                        {
+                            label: 'COVID-19 Impact',
+                            data: countries.map(country => calculateCrisisImpact(country, 2019)),
+                            backgroundColor: Object.values(colors).map(color => color + 'cc')
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'top'
+                        }
+                    },
+                    scales: {
+                        y: {
+                            title: {
+                                display: true,
+                                text: 'Percentage Change (%)'
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // Initialize recovery speed chart
+        function initRecoveryChart() {
+            const ctx = document.getElementById('recoveryChart').getContext('2d');
+            const countries = Object.keys(unemploymentData.datasets);
+            
+            const recoveryData = countries.map(country => {
+                const financialCrisisRecovery = calculateRecoveryTime(country, 2009);
+                const covidRecovery = calculateRecoveryTime(country, 2020);
+                return {
+                    country,
+                    financial: financialCrisisRecovery,
+                    covid: covidRecovery
+                };
+            });
+
+            new Chart(ctx, {
+                type: 'radar',
+                data: {
+                    labels: countries,
+                    datasets: [
+                        {
+                            label: 'Financial Crisis Recovery (Years)',
+                            data: recoveryData.map(d => d.financial),
+                            borderColor: '#1a73e8',
+                            backgroundColor: '#1a73e820'
+                        },
+                        {
+                            label: 'COVID-19 Recovery (Years)',
+                            data: recoveryData.map(d => d.covid),
+                            borderColor: '#ea4335',
+                            backgroundColor: '#ea433520'
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false
+                }
+            });
+        }
+
+        // Calculate recovery time
+        function calculateRecoveryTime(country, peakYear) {
+            const peakIndex = unemploymentData.labels.indexOf(peakYear);
+            const peakValue = unemploymentData.datasets[country][peakIndex];
+            const preValue = unemploymentData.datasets[country][peakIndex - 1];
+            
+            let years = 0;
+            for (let i = peakIndex + 1; i < unemploymentData.datasets[country].length; i++) {
+                if (unemploymentData.datasets[country][i] <= preValue) {
+                    return years + 1;
+                }
+                years++;
+            }
+            return years;
+        }
+
+        // Update metrics display
+        function updateMetrics() {
+            const financialMetrics = document.getElementById('financialCrisisMetrics');
+            const covidMetrics = document.getElementById('covidMetrics');
+
+            const countries = Object.keys(unemploymentData.datasets);
+            
+            financialMetrics.innerHTML = countries.map(country => `
+                <div class="metric-card">
+                    <div class="metric-value">${calculateCrisisImpact(country, 2008)}%</div>
+                    <div class="metric-label">${country} Impact</div>
+                </div>
+            `).join('');
+
+            covidMetrics.innerHTML = countries.map(country => `
+                <div class="metric-card">
+                    <div class="metric-value">${calculateCrisisImpact(country, 2019)}%</div>
+                    <div class="metric-label">${country} Impact</div>
+                </div>
+            `).join('');
+        }
+
+        // Period update handler
+        function updatePeriod(period) {
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+
+            switch(period) {
+                case 'financial-crisis':
+                    initMainChart(2007, 2011);
+                    break;
+                case 'covid':
+                    initMainChart(2019, 2023);
+                    break;
+                default:
+                    initMainChart(2006, 2023);
+            }
+        }
+
+        // Initialize all visualizations
+        initMainChart();
+        initCrisisComparison();
+        initRecoveryChart();
+        updateMetrics();
+    </script>
+</body>
+</html>

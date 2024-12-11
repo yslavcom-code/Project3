@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Economic Indicators Map</title>
+    
+    <!-- Include Leaflet CSS and JS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Include our map.js -->
+    <script src="/static/js/map.js"></script>
+    
+    <style>
+        #mapContainer {
+            height: 600px;
+            width: 100%;
+            margin: 20px 0;
+        }
+        
+        .controls {
+            margin: 20px;
+            padding: 20px;
+            background-color: #f5f5f5;
+            border-radius: 5px;
+        }
+        
+        select {
+            padding: 8px;
+            margin-right: 10px;
+        }
+        
+        button {
+            padding: 8px 16px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .legend {
+            position: absolute;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <select id="indicatorSelect">
+            <option value="GDP">GDP Deflator</option>
+            <option value="CPI">Consumer Price Index</option>
+        </select>
+        <button onclick="fetchData()">Update Map</button>
+    </div>
+    
+    <div id="mapContainer"></div>
+
+    <script>
+        let map;
+        
+        // Initialize map when page loads
+        $(document).ready(function() {
+            map = initializeMap();
+            fetchData();
+        });
+
+        // Fetch and display data
+        function fetchData() {
+            const indicator = document.getElementById('indicatorSelect').value;
+            
+            $.get('/api/map-data', {
+                indicator: indicator
+            }, function(response) {
+                updateMap(map, response.data, indicator);
+            });
+        }
+    </script>
+</body>
+</html>
