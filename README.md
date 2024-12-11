@@ -9,7 +9,7 @@ This project analyzes stock market data from various countries and visualizes gl
 Steps to Use and Interact with the Project
 
 Clone the Repository: Clone the repository to your local machine using the following command:
-git clone https://github.com/your-username/your-repo-name.git
+git clone https://github.com/yslavcom-code/Project3
 
 Install Dependencies: The project requires the following Python libraries:
 pandas
