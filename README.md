@@ -4,7 +4,12 @@ Loku Project Name: Stock Market Analysis and Visualization
 
 Overview
 
-This project analyzes stock market data from various countries and visualizes global and regional stock trends over the past few decades. The data is processed, cleaned, and analyzed using Python libraries such as Pandas, Matplotlib, and MongoDB. The visualizations are intended to provide insights into stock market performance, both globally and regionally, with a focus on trends from 1995 to 2024.
+This project analyzes stock market data from various countries and visualizes global and regional stock trends over the past few decades. 
+The data is processed, cleaned, and analyzed using Python libraries such as Pandas, Matplotlib, and MongoDB. 
+The visualizations are intended to provide insights into stock market performance, both globally and regionally, with a focus on trends from 1995 to 2024.
+
+
+
 
 Steps to Use and Interact with the Project
 
@@ -17,8 +22,13 @@ matplotlib
 mpld3
 pymongo
 
+
+
 You can install these dependencies using pip:
 pip install pandas matplotlib mpld3 pymongo
+
+
+
 
 
 Prepare the Data:
@@ -26,11 +36,17 @@ The data is stored in an Excel file (Stock Markets, US$.xlsx).
 Update the file path in the code to point to your file.
 The data is cleaned, including renaming columns, handling missing values, and saving the cleaned data as a new Excel file (cleaned_stock_data.xlsx).
 
+
+
+
 Run the Analysis: 
 The analysis is done in the Jupyter notebook. 
 To run the analysis:
 Open the Jupyter notebook.
 Execute the code block by block.
+
+
+
 
 
 View the Visualizations: 
