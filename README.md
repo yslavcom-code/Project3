@@ -1,71 +1,63 @@
-# Project3
-
-Loku Project Name: Stock Market Analysis and Visualization
+Stock Data Analysis Project
 
 Overview
 
-This project analyzes stock market data from various countries and visualizes global and regional stock trends over the past few decades. 
-The data is processed, cleaned, and analyzed using Python libraries such as Pandas, Matplotlib, and MongoDB. 
-The visualizations are intended to provide insights into stock market performance, both globally and regionally, with a focus on trends from 1995 to 2024.
+This project analyzes stock data for multiple countries between 1995 and 2024. It calculates global averages, regional trends, and visualizes the results using various plots. The data is stored in MongoDB for future analysis.
+
+Steps
+
+1. Setup
+Install the required dependencies for the project. Ensure MongoDB is running, or update the connection URL in the script.
+
+
+
+3. Load and Clean Data
+Load the stock data from an Excel file.
+Rename the 'Unnamed: 0' column to 'Year'.
+Remove rows where the 'Year' column is NaN and reset the index.
+Convert the 'Year' column to integers.
+Replace '0.0' values with NaN and fill missing values with 0 for all columns except 'Year'.
+
+
+
+5. Insert Data into MongoDB
+Connect to MongoDB.
+Convert the cleaned data into a list of dictionaries and insert it into the MongoDB collection.
+
+
+
+7. Calculate Global Averages
+Calculate the global average and median stock value for each year across all countries.
+8. Regional Trends
+Define regions and group countries accordingly.
+Calculate the average stock value for each region for each year.
+
+
+10. Save Regional Trends to MongoDB
+Insert the calculated regional trends into the MongoDB collection.
+
+
+
+12. Visualize Trends
+Create and save plots to visualize global trends (line plot for global average and median) and regional trends (stacked area plot for regional averages).
+Save the plots in both PNG and interactive HTML formats.
+
+
+
+14. Retrieve Data from MongoDB
+Retrieve the global averages and regional trends from MongoDB and display them.
+Conclusion
+
+This project provides a comprehensive analysis of stock trends at global and regional levels, with all data stored in MongoDB for future use. It also generates visualizations to help better understand the stock trends over time.
 
 
 
 
-Steps to Use and Interact with the Project
-
-Clone the Repository: Clone the repository to your local machine using the following command:
-git clone https://github.com/yslavcom-code/Project3
-
-Install Dependencies: The project requires the following Python libraries:
-pandas
-matplotlib
-mpld3
-pymongo
-
-
-
-You can install these dependencies using pip:
-pip install pandas matplotlib mpld3 pymongo
 
 
 
 
 
-Prepare the Data:
-The data is stored in an Excel file (Stock Markets, US$.xlsx).
-Update the file path in the code to point to your file.
-The data is cleaned, including renaming columns, handling missing values, and saving the cleaned data as a new Excel file (cleaned_stock_data.xlsx).
-
-
-
-
-Run the Analysis: 
-The analysis is done in the Jupyter notebook. 
-To run the analysis:
-Open the Jupyter notebook.
-Execute the code block by block.
-
-
-
-
-
-View the Visualizations: 
-After running the analysis, three visualizations will be generated:
-Global Stock Trends (1995-2024): A line plot showing the global average and median stock values.
-Regional Stock Trends (1995-2024): A stacked plot visualizing stock trends for different regions (e.g., Europe, North America, Asia).
-Average Regional Stock Values (1995-2024): A bar plot showing the average stock value for each region.
-
-The plots will be saved as PNG files and HTML files (for interactivity).
-MongoDB Integration: The project integrates MongoDB to store and manage the data. Ensure MongoDB is set up locally or use a cloud database. Modify the connection details in the code as needed.
-
-
-
-
-This project ensures the ethical handling of data by:
-Using publicly available stock market data.
-Ensuring that no sensitive or private information is included in the analysis.
-Taking steps to clean the data appropriately to avoid biases or inaccuracies.
-Additionally, the project adheres to open-source principles, and all code and data sources used are referenced accordingly.
 
 Data Source(s)
 
@@ -84,42 +76,18 @@ MongoDB Documentation: https://www.mongodb.com/docs/
 
 
 
-
-Folder Structure:
-
-/Stock-Market-Analysis
-
-
-    /Resources
-    
-    Stock Markets, US$.xlsx
-
-
-    /Output
-    
-        cleaned_stock_data.xlsx
-        
-        global_trends_plot.png
-        
-        regional_trends_plot.png
-        
-        regional_bar_plot.png
-        
-        global_trends_plot.html
-        
-        regional_trends_plot.html
-        
-        regional_bar_plot.html
-
-
-    
-  /Stock Markets.ipyng
-  
-  / README.md
-
-
-
-
+## Repository Structure
+```
+.
+├── Resources
+│   ├── Stock Markets, US$.xlsx
+├── stock_analysis.py
+├── requirements.txt
+├── global_trends_plot.html
+├── regional_trends_plot.html
+├── regional_bar_plot.html
+├── README.md
+```
 
 
 
