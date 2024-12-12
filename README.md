@@ -1,7 +1,218 @@
 # Project3
 
 -------------------------------------------------------------------------------
-Samadhi Lokuhewage part
+__Iaroslav Dochien part__
+
+Current project directory structure
+```text
+.
+├── 15.3 Citi Bike Project with Leaflet & Intro to Projects.pdf
+├── GemDataEXTR
+│   ├── CPI Price, % y-o-y, median weighted, seas. adj..xlsx
+│   ├── CPI Price, % y-o-y, nominal, seas. adj..xlsx
+│   ├── CPI Price, nominal, not seas. adj..xlsx
+│   ├── CPI Price, nominal, seas. adj..xlsx
+│   ├── Core CPI, not seas. adj..xlsx
+│   ├── Core CPI, seas. adj..xlsx
+│   ├── Exchange rate, new LCU per USD extended backward, period average.xlsx
+│   ├── Exchange rate, old LCU per USD extended forward, period average.xlsx
+│   ├── Exports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+│   ├── Exports Merchandise, Customs, Price, US$, seas. adj..xlsx
+│   ├── Exports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+│   ├── Exports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+│   ├── Exports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+│   ├── Exports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+│   ├── Foreign Reserves, Months Import Cover, Goods.xlsx
+│   ├── GDP Deflator at Market Prices, LCU.xlsx
+│   ├── GDP at market prices, constant 2010 LCU, millions, seas. adj..xlsx
+│   ├── GDP at market prices, constant 2010 US$, millions, seas. adj..xlsx
+│   ├── GDP at market prices, current LCU, millions, seas. adj..xlsx
+│   ├── GDP at market prices, current US$, millions, seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, Price, US$, seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+│   ├── Imports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+│   ├── Industrial Production, constant 2010 US$, not seas. adj..xlsx
+│   ├── Industrial Production, constant 2010 US$, seas. adj..xlsx
+│   ├── Nominal Effective Exchange Rate.xlsx
+│   ├── Official exchange rate, LCU per USD, period average.xlsx
+│   ├── Real Effective Exchange Rate.xlsx
+│   ├── Retail Sales Volume Index, seas. adj..xlsx
+│   ├── Stock Markets, LCU.xlsx
+│   ├── Stock Markets, US$.xlsx
+│   ├── Terms of Trade.xlsx
+│   ├── Total Reserves.xlsx
+│   └── Unemployment Rate, seas. adj..xlsx
+├── GemDataEXTR.zip
+├── image.png
+├── link.txt
+└── prj
+    ├── BankProject
+    │   ├── Final
+    │   │   ├── Australia_unemployment_rate.ipynb
+    │   │   ├── Australian_Unemployment_rate.png
+    │   │   ├── Comprehensive_analysis.html
+    │   │   └── Unemployment_Rate01.csv
+    │   ├── GemDataEXTR
+    │   │   ├── CPI Price, % y-o-y, median weighted, seas. adj..xlsx
+    │   │   ├── CPI Price, % y-o-y, nominal, seas. adj..xlsx
+    │   │   ├── CPI Price, nominal, not seas. adj..xlsx
+    │   │   ├── CPI Price, nominal, seas. adj..xlsx
+    │   │   ├── Core CPI, not seas. adj..xlsx
+    │   │   ├── Core CPI, seas. adj..xlsx
+    │   │   ├── GDP Deflator at Market Prices, LCU.xlsx
+    │   │   ├── GDP at market prices, constant 2010 LCU, millions, seas. adj..xlsx
+    │   │   ├── GDP at market prices, constant 2010 US$, millions, seas. adj..xlsx
+    │   │   ├── GDP at market prices, current LCU, millions, seas. adj..xlsx
+    │   │   ├── GDP at market prices, current US$, millions, seas. adj..xlsx
+    │   │   └── Not Use
+    │   │       ├── Exchange rate, new LCU per USD extended backward, period average.xlsx
+    │   │       ├── Exchange rate, old LCU per USD extended forward, period average.xlsx
+    │   │       ├── Exports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+    │   │       ├── Exports Merchandise, Customs, Price, US$, seas. adj..xlsx
+    │   │       ├── Exports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+    │   │       ├── Exports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+    │   │       ├── Exports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+    │   │       ├── Exports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+    │   │       ├── Foreign Reserves, Months Import Cover, Goods.xlsx
+    │   │       ├── Imports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+    │   │       ├── Imports Merchandise, Customs, Price, US$, seas. adj..xlsx
+    │   │       ├── Imports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+    │   │       ├── Imports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+    │   │       ├── Imports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+    │   │       ├── Imports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+    │   │       ├── Industrial Production, constant 2010 US$, not seas. adj..xlsx
+    │   │       ├── Industrial Production, constant 2010 US$, seas. adj..xlsx
+    │   │       ├── Nominal Effective Exchange Rate.xlsx
+    │   │       ├── Official exchange rate, LCU per USD, period average.xlsx
+    │   │       ├── Real Effective Exchange Rate.xlsx
+    │   │       ├── Retail Sales Volume Index, seas. adj..xlsx
+    │   │       ├── Stock Markets, LCU.xlsx
+    │   │       ├── Stock Markets, US$.xlsx
+    │   │       ├── Terms of Trade.xlsx
+    │   │       ├── Total Reserves.xlsx
+    │   │       └── Unemployment Rate, seas. adj..xlsx
+    │   ├── Unemployment_Rate_Monthly
+    │   │   ├── Unemployment_Rate.csv
+    │   │   └── Untitled.ipynb
+    │   ├── app.py
+    │   ├── dataset
+    │   │   ├── Unemployment_Rate01.csv
+    │   │   ├── unemployment_rate_cleaned.csv
+    │   │   └── unemployment_statistics.csv
+    │   ├── static
+    │   │   └── map.js
+    │   └── templates
+    │       ├── index.html
+    │       └── map.html
+    ├── CPI.ipynb
+    ├── CodeIar
+    │   ├── app.py
+    │   ├── read_xlsx.py
+    │   ├── static
+    │   │   ├── JaneFolder
+    │   │   │   ├── monthly-core-cpi-trend-analysis-seas-adjusted.png
+    │   │   │   └── monthly-core-cpi-trend.png
+    │   │   ├── LokuFolder
+    │   │   │   ├── global_trends_plot.png
+    │   │   │   ├── regional_bar_plot.png
+    │   │   │   └── regional_trends_plot.png
+    │   │   ├── SoheilFolder
+    │   │   │   ├── Australian Unemployment Rate during Major Economic Crises.png
+    │   │   │   └── Australian_Unemployment_rate.png
+    │   │   ├── map.js
+    │   │   └── script.js
+    │   └── templates
+    │       ├── Comprehensive_analysis.html
+    │       ├── chart_page.html
+    │       ├── gallery.html
+    │       ├── index.html
+    │       └── update_status.html
+    ├── Output
+    │   ├── cleaned_stock_data.xlsx
+    │   ├── global_trends_plot.html
+    │   ├── global_trends_plot.png
+    │   ├── regional_bar_plot.html
+    │   ├── regional_bar_plot.png
+    │   ├── regional_trends_plot.html
+    │   └── regional_trends_plot.png
+    ├── Project3
+    ├── README.md
+    ├── ResourceIar
+    │   ├── CPI Price, % y-o-y, median weighted, seas. adj..xlsx
+    │   ├── CPI Price, % y-o-y, nominal, seas. adj..xlsx
+    │   ├── CPI Price, nominal, not seas. adj..xlsx
+    │   ├── CPI Price, nominal, seas. adj..xlsx
+    │   ├── Core CPI, not seas. adj..xlsx
+    │   ├── Core CPI, seas. adj..xlsx
+    │   ├── Exchange rate, new LCU per USD extended backward, period average.xlsx
+    │   ├── Exchange rate, old LCU per USD extended forward, period average.xlsx
+    │   ├── Exports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+    │   ├── Exports Merchandise, Customs, Price, US$, seas. adj..xlsx
+    │   ├── Exports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+    │   ├── Exports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+    │   ├── Exports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+    │   ├── Exports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+    │   ├── Foreign Reserves, Months Import Cover, Goods.xlsx
+    │   ├── GDP Deflator at Market Prices, LCU.xlsx
+    │   ├── GDP at market prices, constant 2010 LCU, millions, seas. adj..xlsx
+    │   ├── GDP at market prices, constant 2010 US$, millions, seas. adj..xlsx
+    │   ├── GDP at market prices, current LCU, millions, seas. adj..xlsx
+    │   ├── GDP at market prices, current US$, millions, seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, Price, US$, not seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, Price, US$, seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, constant 2010 US$, millions, not seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, constant 2010 US$, millions, seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, current US$, millions, not seas. adj..xlsx
+    │   ├── Imports Merchandise, Customs, current US$, millions, seas. adj..xlsx
+    │   ├── Industrial Production, constant 2010 US$, not seas. adj..xlsx
+    │   ├── Industrial Production, constant 2010 US$, seas. adj..xlsx
+    │   ├── Nominal Effective Exchange Rate.xlsx
+    │   ├── Official exchange rate, LCU per USD, period average.xlsx
+    │   ├── Real Effective Exchange Rate.xlsx
+    │   ├── Retail Sales Volume Index, seas. adj..xlsx
+    │   ├── Stock Markets, LCU.xlsx
+    │   ├── Stock Markets, US$.xlsx
+    │   ├── Terms of Trade.xlsx
+    │   ├── Total Reserves.xlsx
+    │   └── Unemployment Rate, seas. adj..xlsx
+    ├── Resources
+    │   └── Stock Markets, US$.xlsx
+    └── Stock Markets final.ipynb
+```
+
+I focused primarily on backend and visualisation of data.
+From directory [CodeIar](https://github.com/yslavcom-code/Project3/tree/dev/combined/CodeIar), launch server by typing
+__python app.py__
+then access from browser such as 
+__http://127.0.0.1:5000/__
+
+It should open a page with the World Map with tags for the countries present in the datasets for this project.
+
+```text
+The following paths are available
+/            - home page (world map with country tags)
+/update-data - launches script to update the mongodb database with data from Deflator Spreadsheets
+/delete-data - deletes the database in mongo db for debug purposes
+/data        - fetches data from mongo db database for interactive visuals
+/chart_page  - page to display GDP Deflator for various countries in interactive mode, data fetched from mongo db
+/soheil      - Folder for snapshots provided by Soheil
+/jane        - Folder for snapshots provided by Jane
+/loku        - Folder for snapshots provided by Loku
+```
+```text
+The following libraries were used
+- flask
+- pymongo
+- json
+- bson
+- leaflet
+- chart.js
+```
+-------------------------------------------------------------------------------
+__Samadhi Lokuhewage part__
 
 Stock Data Analysis Project
 
@@ -95,7 +306,7 @@ MongoDB Documentation: https://www.mongodb.com/docs/
 ```
 
 -------------------------------------------------------------------------------
-Soheil part
+__Soheil part__
 
 For this project, I focused on analyzing unemployment trends across major economic crises, with a particular emphasis on Australia's experience during the 2008 Global Financial Crisis and the COVID-19 pandemic.
 
