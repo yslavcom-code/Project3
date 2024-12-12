@@ -77,12 +77,5 @@ def loku_page():
     image_urls = [url_for('static', filename=f"LokuFolder/{file}") for file in os.listdir(folder_path) if file.endswith(('png', 'jpg', 'jpeg', 'gif'))]
     return render_template("gallery.html", images=image_urls, folder_name="LokuFolder")
 
-@app.route('/example')
-def example_page():
-    # Dynamically read images from Example
-    folder_path = os.path.join(app.static_folder, "ExampleFolder")
-    image_urls = [url_for('static', filename=f"ExampleFolder/{file}") for file in os.listdir(folder_path) if file.endswith(('png', 'jpg', 'jpeg', 'gif'))]
-    return render_template("gallery.html", images=image_urls, folder_name="ExampleFolder")
-
 if __name__ == "__main__":
     app.run(debug=True)
