@@ -12,7 +12,8 @@ app = Flask(__name__)
 client = MongoClient("mongodb://localhost:27017/")
 db = client['economic_data']
 collection = db['gdp_deflator']
-       
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -78,4 +79,5 @@ def loku_page():
     return render_template("gallery.html", images=image_urls, folder_name="LokuFolder")
 
 if __name__ == "__main__":
+    update_from_spreadsheet() # Update DB on start for simplicity
     app.run(debug=True)
