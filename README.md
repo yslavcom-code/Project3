@@ -215,7 +215,9 @@ The following libraries were used
 - chart.js
 ```
 From the GDP Deflator chart is seen that mainly it grows over time for most of the countried and the post-covid time has had a significant impact,
-especially on Argentina
+especially on Argentina.
+
+Sone slides are given in __Project 3 Presentation.pdf__
 
 -------------------------------------------------------------------------------
 __Samadhi Lokuhewage part__
