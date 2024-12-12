@@ -107,8 +107,10 @@ Current project directory structure
     │   └── templates
     │       ├── index.html
     │       └── map.html
-    ├── CPI.ipynb
+    ├── CPI final.ipynb
     ├── CodeIar
+    │   ├── __pycache__
+    │   │   └── read_xlsx.cpython-312.pyc
     │   ├── app.py
     │   ├── read_xlsx.py
     │   ├── static
@@ -138,6 +140,7 @@ Current project directory structure
     │   ├── regional_bar_plot.png
     │   ├── regional_trends_plot.html
     │   └── regional_trends_plot.png
+    ├── Project 3 Presentation.pdf
     ├── Project3
     ├── README.md
     ├── ResourceIar
@@ -211,6 +214,9 @@ The following libraries were used
 - leaflet
 - chart.js
 ```
+From the GDP Deflator chart is seen that mainly it grows over time for most of the countried and the post-covid time has had a significant impact,
+especially on Argentina
+
 -------------------------------------------------------------------------------
 __Samadhi Lokuhewage part__
 
