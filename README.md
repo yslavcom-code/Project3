@@ -3,6 +3,9 @@
 -------------------------------------------------------------------------------
 __Iaroslav Dochien part__
 
+Datasets were downloaded following the link:
+https://datacatalogfiles.worldbank.org/ddh-published/0037798/DR0092042/GemDataEXTR.zip?versionId=2024-11-28T11:02:38.3956286Z
+
 Current project directory structure
 ```text
 .
